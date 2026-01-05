@@ -1,24 +1,30 @@
-// Mobile Menu Toggle
-const mobileToggle = document.querySelector('.mobile-toggle');
-const nav = document.querySelector('nav ul');
 
-mobileToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-});
+document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Navigation Toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navUl = document.querySelector('nav ul');
 
-// Close menu when clicking a link
-document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        nav.classList.remove('active');
-    });
-});
-
-// Smooth Scroll for Anchor Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', () => {
+            navUl.classList.toggle('active');
         });
-    });
+    }
+
+    // Hero Carousel
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    if (carouselItems.length > 0) {
+        let currentSlide = 0;
+        const totalSlides = carouselItems.length;
+
+        setInterval(() => {
+            // Remove active class from current slide
+            carouselItems[currentSlide].classList.remove('active');
+
+            // Move to next slide
+            currentSlide = (currentSlide + 1) % totalSlides;
+
+            // Add active class to new current slide
+            carouselItems[currentSlide].classList.add('active');
+        }, 5000); // Change every 5 seconds
+    }
 });
